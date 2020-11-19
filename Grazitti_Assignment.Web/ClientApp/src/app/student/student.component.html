@@ -1,0 +1,103 @@
+<div *ngIf="!displayForm">
+  <div>
+
+
+    <button mat-flat-button color="primary" class="float-right" (click)="addNewStudent()">
+      Add
+    </button>
+  </div>
+  <div>
+    <table mat-table [dataSource]="students">
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>Id</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
+
+      <!-- First Name Column -->
+      <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef>First Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
+      </ng-container>
+
+      <!-- Last Name Column -->
+      <ng-container matColumnDef="lastName">
+        <th mat-header-cell *matHeaderCellDef>Weight</th>
+        <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
+      </ng-container>
+
+      <!-- Class Column -->
+      <ng-container matColumnDef="class">
+        <th mat-header-cell *matHeaderCellDef>Class</th>
+        <td mat-cell *matCellDef="let element">{{ element.class }}</td>
+      </ng-container>
+
+      <!-- Subject Column -->
+      <ng-container matColumnDef="section">
+        <th mat-header-cell *matHeaderCellDef>Section</th>
+        <td mat-cell *matCellDef="let element">{{ element.section }}</td>
+      </ng-container>
+
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <a href="javascript:void(0)" (click)="edit(element)"> edit </a>|<a
+            href="javascript:void(0)"
+            (click)="deleteStudent(element)"
+          >
+            delete
+          </a>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>
+<div *ngIf="displayForm">
+  <mat-form-field>
+    <mat-label>First Name</mat-label>
+    <input matInput type="text" [(ngModel)]="student.firstName"
+  /></mat-form-field>
+<br>
+  <mat-form-field>
+    <mat-label>Last Name</mat-label>
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="student.lastName" /></mat-form-field
+  >
+<br>
+  <mat-form-field>
+    <mat-label>Class</mat-label>
+    <input matInput type="number" [(ngModel)]="student.class"
+  /></mat-form-field>
+<br>
+  <mat-form-field>
+    <mat-label>Section</mat-label>
+    <input matInput type="text" [(ngModel)]="student.section"
+  /></mat-form-field>
+<br>
+  <button mat-stroked-button color="primary" (click)="cancelAddEdit()">
+    Cancel
+  </button>
+  <button
+    mat-flat-button
+    color="primary"
+    *ngIf="!isAdding"
+    (click)="updateStudent(student)"
+  >
+    Save
+  </button>
+  <button
+    mat-flat-button
+    color="primary"
+    *ngIf="isAdding"
+    (click)="addStudent(student)"
+  >
+    Add
+  </button>
+</div>
